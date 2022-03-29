@@ -7,12 +7,10 @@ const useUserProfile = (
 ): {
   loading: boolean;
   username: string | null;
-  website: string | null;
   avatar_url: string | null;
 } => {
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState<string | null>(null);
-  const [website, setWebsite] = useState<string | null>(null);
   const [avatar_url, setAvatarUrl] = useState<string | null>(null);
 
   useEffect(() => {
@@ -40,7 +38,6 @@ const useUserProfile = (
 
       if (data) {
         setUsername(data.username);
-        setWebsite(data.website);
         setAvatarUrl(data.avatar_url);
       }
     } catch (error: any) {
@@ -78,7 +75,7 @@ const useUserProfile = (
     }
   };
 
-  return { loading, username, avatar_url, website };
+  return { loading, username, avatar_url };
 };
 
 export default useUserProfile;

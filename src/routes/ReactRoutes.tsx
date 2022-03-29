@@ -22,7 +22,7 @@ const ReactRoutes: React.FC<ReactRoutesProps> = ({
               path='/'
               element={<PrivateRoute isSignedIn={!!userSession} />}
             >
-              <Route path='/' element={<Home />} />
+              <Route path='/' element={<Home userSession={userSession} />} />
             </Route>
 
             <Route
@@ -31,7 +31,7 @@ const ReactRoutes: React.FC<ReactRoutesProps> = ({
             >
               <Route
                 path='/create-menu-template'
-                element={<CreateMenuTemplate />}
+                element={<CreateMenuTemplate userSession={userSession} />}
               />
             </Route>
 

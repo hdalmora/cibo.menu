@@ -52,6 +52,13 @@ export const Container = styled.section`
       max-width: 164px;
       text-overflow: ellipsis;
       white-space: nowrap;
+      font-weight: 700;
+    }
+
+    li.profile-menu {
+      display: flex;
+      color: ${(props) => props.theme.blue300};
+      cursor: pointer;
     }
 
     ul {

@@ -13,6 +13,16 @@ export const Container = styled.section`
     font-size: 32px;
   }
 
+  p.empty-templates-list-txt {
+    font-size: 18px;
+    font-weight: 700;
+    color: ${(props) => props.theme.neutral_color_05};
+    border-bottom: 2px solid ${(props) => props.theme.neutral_color_04};
+    line-height: 1.5;
+    align-self: start;
+    margin-top: 4rem;
+  }
+
   .main-title {
     display: flex;
     justify-content: space-between;

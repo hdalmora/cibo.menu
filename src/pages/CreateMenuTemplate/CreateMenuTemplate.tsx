@@ -1,5 +1,7 @@
 import { useRef } from 'react';
 import { toast } from 'react-toastify';
+import { Session } from '@supabase/supabase-js';
+import { useNavigate } from 'react-router-dom';
 import { Form } from '@unform/web';
 import { SubmitHandler, FormHandles } from '@unform/core';
 import AddSectionButton from '../../components/AddSectionButton';
@@ -12,9 +14,18 @@ import { MenuSection } from '../../models/menu-template';
 import { validateMenuTemplate } from '../../validations';
 import * as S from './styles';
 import CustomButton from '../../components/CustomButton';
+import supabase from '../../../supabaseClient';
 
-const CreateMenuTemplate: React.FC = () => {
+interface CreateMenuTemplateProps {
+  userSession: Session | null;
+}
+
+const CreateMenuTemplate: React.FC<CreateMenuTemplateProps> = ({
+  userSession,
+}: CreateMenuTemplateProps) => {
   const formRef = useRef<FormHandles>(null);
+
+  let navigate = useNavigate();
 
   const {
     menu,
@@ -27,25 +38,55 @@ const CreateMenuTemplate: React.FC = () => {
     updateMenuDescription,
     removeMenuItem,
     removeSection,
+    clearMenuData,
   } = useStore();
 
-  const handleSubmit: SubmitHandler<MenuSection> = async (data) => {
+  const handleCreateMenuTemplate = async () => {
+    const { data, error } = await supabase.from('menu-template').insert([
+      {
+        name: menu.name,
+        description: menu.description,
+        sections: menu.sections,
+        user_id: userSession?.user?.id,
+      },
+    ]);
+
+    return { data, error };
+  };
+
+  const handleSubmit: SubmitHandler<MenuSection> = async (formData) => {
     if (!formRef.current) return;
 
     formRef.current.setErrors({});
 
     try {
-      await validateMenuTemplate(data);
+      await validateMenuTemplate(formData);
 
-      toast.success('Succes! Enjoy your menu 🦄', {
-        position: 'bottom-left',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      const { data, error } = await handleCreateMenuTemplate();
+
+      if (data && !error) {
+        toast.success('Succes! Enjoy your menu 🦄', {
+          position: 'bottom-left',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        navigate('/');
+        clearMenuData();
+      } else {
+        toast.error('Oops, an error occured 🦄', {
+          position: 'bottom-left',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
     } catch (err: any) {
       const validationErrors: any = {};
 

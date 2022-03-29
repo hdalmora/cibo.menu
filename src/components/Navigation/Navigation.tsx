@@ -1,7 +1,9 @@
 import { ReactNode } from 'react';
 import { Session } from '@supabase/supabase-js';
+import { AiFillCaretDown } from 'react-icons/ai';
 // import useUserProfile from '../../customHooks/useUserProfile';
 import LinkButton from '../LinkButton';
+import supabase from '../../../supabaseClient';
 import * as S from './styles';
 
 interface NavigationProps {
@@ -26,6 +28,14 @@ const Navigation: React.FC<NavigationProps> = ({
         <div>
           <span className='nav-title'>Cibo.menu</span>
 
+          {!isSignedIn && (
+            <ul>
+              <li>
+                <LinkButton label='Loggin in!' to='/auth' />
+              </li>
+            </ul>
+          )}
+
           {isSignedIn && (
             <ul>
               <li>
@@ -41,16 +51,14 @@ const Navigation: React.FC<NavigationProps> = ({
 
         {isSignedIn && (
           <ul>
-            <li>
+            <li
+              className='profile-menu'
+              onClick={() => {
+                supabase.auth.signOut();
+              }}
+            >
               <p className='user-email-nav'>{userSession?.user?.email}</p>
-            </li>
-          </ul>
-        )}
-
-        {!isSignedIn && (
-          <ul>
-            <li>
-              <LinkButton label='Loggin in!' to='/auth' />
+              <AiFillCaretDown />
             </li>
           </ul>
         )}

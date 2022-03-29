@@ -18,6 +18,7 @@ interface MenuTemplateState {
   updatePrice: (sectionIndex: number, id: string, price: number) => void;
   updateMenuName: (menuName: string) => void;
   updateMenuDescription: (menuDescription: string) => void;
+  clearMenuData: () => void;
 }
 
 export const useStore = create<MenuTemplateState>((set) => ({
@@ -90,6 +91,12 @@ export const useStore = create<MenuTemplateState>((set) => ({
     set(
       produce((state) => {
         state.menu.description = menuDescription;
+      })
+    ),
+  clearMenuData: () =>
+    set(
+      produce((state) => {
+        state.menu = { id: '', name: '', description: '', sections: [] };
       })
     ),
 }));
