@@ -395,6 +395,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-text-mask@^5.4.11":
+  version "5.4.11"
+  resolved "https://registry.yarnpkg.com/@types/react-text-mask/-/react-text-mask-5.4.11.tgz#dfbfc8642ee27977ed0cdfb1c61b53c85248c01c"
+  integrity sha512-DIJ3/dS4jd7NK3lEgsOwcgpp+ZlVrNJEiUDRayZRE/PNMbV/nLWmOKGdL0BUS29hnx0CDgITgPudKx0BgbF5fA==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react@*", "@types/react@^17.0.33":
   version "17.0.43"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.43.tgz#4adc142887dd4a2601ce730bc56c3436fdb07a55"
@@ -417,6 +424,18 @@
     "@types/hoist-non-react-statics" "*"
     "@types/react" "*"
     csstype "^3.0.2"
+
+"@types/text-mask-addons@^3.8.1":
+  version "3.8.1"
+  resolved "https://registry.yarnpkg.com/@types/text-mask-addons/-/text-mask-addons-3.8.1.tgz#4968d8592ab3ab8b0fd3d877fbbe991c84d5c2a0"
+  integrity sha512-TD4Ifr3ZyWtyr1gOrNgCpa6RxXJ3M81YNzQq4p2pxOCeiIgHqAm4iisxmfHGhJG8+Zzad/yp4rxg349UMEWioA==
+  dependencies:
+    "@types/text-mask-core" "*"
+
+"@types/text-mask-core@*":
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/@types/text-mask-core/-/text-mask-core-5.1.1.tgz#8c699018b392940d8436734a5a564603d941a843"
+  integrity sha512-UixQLPJ5ulheZJkhpnEZMu0403jIVWXBM9EgfkXhuO9a/woVs9Bg9pebxB0dChI4DOxnQ5SR9bfRlaNMuDfXrg==
 
 "@types/uuid@^8.3.4":
   version "8.3.4"
@@ -1290,7 +1309,7 @@ prop-types-exact@^1.2.0:
     object.assign "^4.1.0"
     reflect.ownkeys "^0.2.0"
 
-prop-types@^15.7.2:
+prop-types@^15.5.6, prop-types@^15.7.2:
   version "15.8.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -1353,6 +1372,13 @@ react-router@6.2.2:
   integrity sha512-/MbxyLzd7Q7amp4gDOGaYvXwhEojkJD5BtExkuKmj39VEE0m3l/zipf6h2WIB2jyAO0lI6NGETh4RDcktRm4AQ==
   dependencies:
     history "^5.2.0"
+
+react-text-mask@^5.4.3:
+  version "5.4.3"
+  resolved "https://registry.yarnpkg.com/react-text-mask/-/react-text-mask-5.4.3.tgz#991efb4299e30c2e6c2c46d13f617169463e0d2d"
+  integrity sha1-mR77QpnjDC5sLEbRP2FxaUY+DS0=
+  dependencies:
+    prop-types "^15.5.6"
 
 react-toastify@^8.2.0:
   version "8.2.0"
@@ -1488,6 +1514,11 @@ supports-preserve-symlinks-flag@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz#6eda4bd344a3c94aea376d4cc31bc77311039e09"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
+
+text-mask-addons@^3.8.0:
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/text-mask-addons/-/text-mask-addons-3.8.0.tgz#17b61ef665a4f36811f2ea1f01a223b4be61ab26"
+  integrity sha1-F7Ye9mWk82gR8uofAaIjtL5hqyY=
 
 to-fast-properties@^2.0.0:
   version "2.0.0"

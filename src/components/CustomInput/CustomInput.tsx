@@ -1,6 +1,20 @@
 import { useEffect, useState, useRef } from 'react';
+import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 import { useField } from '@unform/core';
 import * as S from './styles';
+import MaskedInputWithRef from './MaskedInputWithRef';
+
+const defaultMaskOptions = {
+  prefix: 'R$ ',
+  suffix: '',
+  includeThousandsSeparator: false,
+  allowDecimal: true,
+  decimalSymbol: '.',
+  decimalLimit: 2,
+  integerLimit: 3,
+  allowNegative: false,
+  allowLeadingZeroes: false,
+};
 
 interface CustomInputProps {
   name: string;
@@ -17,6 +31,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
   value,
   onChangeValue,
   main,
+  type,
 }: CustomInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -28,7 +43,11 @@ const CustomInput: React.FC<CustomInputProps> = ({
     const currentValue = event.target.value;
 
     if (currentValue) {
-      onChangeValue(currentValue);
+      onChangeValue(
+        type === 'number'
+          ? Number.parseFloat(currentValue.replace('R$ ', ''))
+          : currentValue
+      );
 
       const isNotEmpty = currentValue.length > 0;
 
@@ -43,10 +62,14 @@ const CustomInput: React.FC<CustomInputProps> = ({
       name: fieldName,
       ref: inputRef,
       getValue: (ref) => {
+        if (type === 'number') {
+          return Number.parseFloat(ref.current.value.replace('R$ ', ''));
+        }
+
         return ref.current.value;
       },
-      setValue: (ref, value) => {
-        ref.current.value = value;
+      setValue: (ref, currentValue: any) => {
+        ref.current.value = currentValue;
       },
       clearValue: (ref) => {
         ref.current.value = '';
@@ -58,19 +81,34 @@ const CustomInput: React.FC<CustomInputProps> = ({
     setErrorControl(!!error);
   }, [error]);
 
+  const currencyMask = createNumberMask({
+    ...defaultMaskOptions,
+  });
+
   return (
     <S.TextFieldContainer
       className='field-input'
       error={errorControl}
       main={main}
     >
-      <input
-        id={fieldName}
-        ref={inputRef}
-        placeholder={placeholder}
-        defaultValue={value || ''}
-        onChange={handleOnChangeInput}
-      />
+      {type === 'number' ? (
+        <MaskedInputWithRef
+          id={fieldName}
+          ref={inputRef}
+          placeholder={placeholder}
+          defaultValue={value || ''}
+          mask={currencyMask}
+          onChange={handleOnChangeInput}
+        />
+      ) : (
+        <input
+          id={fieldName}
+          ref={inputRef}
+          placeholder={placeholder}
+          defaultValue={value || ''}
+          onChange={handleOnChangeInput}
+        />
+      )}
     </S.TextFieldContainer>
   );
 };
