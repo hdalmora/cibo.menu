@@ -14,7 +14,7 @@ interface CardItemProps {
   description?: string;
   OnSeeMenuClicked?: () => void;
   OnGenerateQRCodeClicked?: () => void;
-  OnEditClicked?: () => void;
+  onEdit?: () => void;
   onDelete?: () => void;
 }
 
@@ -23,7 +23,7 @@ const CardItem: React.FC<CardItemProps> = ({
   description,
   OnSeeMenuClicked,
   OnGenerateQRCodeClicked,
-  OnEditClicked,
+  onEdit,
   onDelete,
 }: CardItemProps) => {
   return (
@@ -45,7 +45,7 @@ const CardItem: React.FC<CardItemProps> = ({
                 onClick={OnGenerateQRCodeClicked}
                 data-tip='Generate QR-code'
               />
-              <AiFillEdit onClick={OnEditClicked} data-tip='Edit menu' />
+              <AiFillEdit onClick={onEdit} data-tip='Edit menu' />
               <AiFillDelete onClick={onDelete} data-tip='Delete menu' />
             </span>
           </div>

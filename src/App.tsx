@@ -20,7 +20,14 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <ReactRoutes userSession={userSession} />
-      <ToastContainer />
+      <ToastContainer
+        position='bottom-left'
+        autoClose={5000}
+        hideProgressBar={false}
+        closeOnClick={true}
+        pauseOnHover={true}
+        draggable={true}
+      />
     </ThemeProvider>
   );
 }

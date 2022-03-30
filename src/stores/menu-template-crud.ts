@@ -9,6 +9,7 @@ import {
 
 interface MenuTemplateState {
   menu: MenuTemplate;
+  isEditing: boolean;
   addMenuSection: () => void;
   addMenuItem: (sectionIndex: number, menuItem: MenuItem) => void;
   removeMenuItem: (sectionIndex: number, id: string) => void;
@@ -19,10 +20,12 @@ interface MenuTemplateState {
   updateMenuName: (menuName: string) => void;
   updateMenuDescription: (menuDescription: string) => void;
   clearMenuData: () => void;
+  setMenuTemplate: (template: MenuTemplate) => void;
 }
 
 export const useStore = create<MenuTemplateState>((set) => ({
   menu: { id: '', name: '', description: '', sections: [] },
+  isEditing: false,
   addMenuSection: () =>
     set(
       produce((state) => {
@@ -97,6 +100,14 @@ export const useStore = create<MenuTemplateState>((set) => ({
     set(
       produce((state) => {
         state.menu = { id: '', name: '', description: '', sections: [] };
+        state.isEditing = false;
+      })
+    ),
+  setMenuTemplate: (template: MenuTemplate) =>
+    set(
+      produce((state) => {
+        state.menu = template;
+        state.isEditing = true;
       })
     ),
 }));

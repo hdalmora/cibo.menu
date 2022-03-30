@@ -23,7 +23,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
       <S.InnerButtonContainer
         className='btn'
         onClick={() => {
-          if (disabled || !handleButtonClick) return;
+          if (isLoading || disabled || !handleButtonClick) return;
 
           handleButtonClick();
         }}

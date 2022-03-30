@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useState, useRef } from 'react';
 import { toast } from 'react-toastify';
 import { Session } from '@supabase/supabase-js';
 import { useNavigate } from 'react-router-dom';
@@ -25,6 +25,8 @@ const CreateMenuTemplate: React.FC<CreateMenuTemplateProps> = ({
 }: CreateMenuTemplateProps) => {
   const formRef = useRef<FormHandles>(null);
 
+  const [loading, setLoading] = useState(false);
+
   let navigate = useNavigate();
 
   const {
@@ -42,6 +44,7 @@ const CreateMenuTemplate: React.FC<CreateMenuTemplateProps> = ({
   } = useStore();
 
   const handleCreateMenuTemplate = async () => {
+    setLoading(true);
     const { data, error } = await supabase.from('menu-template').insert([
       {
         name: menu.name,
@@ -51,11 +54,13 @@ const CreateMenuTemplate: React.FC<CreateMenuTemplateProps> = ({
       },
     ]);
 
+    setLoading(false);
+
     return { data, error };
   };
 
   const handleSubmit: SubmitHandler<MenuSection> = async (formData) => {
-    if (!formRef.current) return;
+    if (loading || !formRef.current) return;
 
     formRef.current.setErrors({});
 
@@ -65,27 +70,11 @@ const CreateMenuTemplate: React.FC<CreateMenuTemplateProps> = ({
       const { data, error } = await handleCreateMenuTemplate();
 
       if (data && !error) {
-        toast.success('Succes! Enjoy your menu 🦄', {
-          position: 'bottom-left',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        toast.success('Succes! Enjoy your menu 🦄');
         navigate('/');
         clearMenuData();
       } else {
-        toast.error('Oops, an error occured 🦄', {
-          position: 'bottom-left',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        toast.error('Oops, an error occured 🦄');
       }
     } catch (err: any) {
       const validationErrors: any = {};
@@ -95,15 +84,7 @@ const CreateMenuTemplate: React.FC<CreateMenuTemplateProps> = ({
       });
       formRef.current.setErrors(validationErrors);
 
-      toast.warn('A validation error appeared! 🦄', {
-        position: 'bottom-left',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      toast.warn('A validation error appeared! 🦄');
     }
   };
 
@@ -113,7 +94,7 @@ const CreateMenuTemplate: React.FC<CreateMenuTemplateProps> = ({
         <CustomButton
           text='Save menu'
           disabled={false}
-          isLoading={false}
+          isLoading={loading}
           variation='primary'
           width={120}
         />
