@@ -7,6 +7,45 @@ export const Container = styled.section`
   width: 100%;
   max-width: 720px;
 
+  div.menu-action-container {
+    display: flex;
+    align-items: center;
+
+    position: absolute;
+    left: -3.5rem;
+
+    div {
+      width: 48px;
+      height: 48px;
+      border-radius: 24px;
+      background-color: white;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-right: 18px;
+
+      cursor: pointer;
+
+      transition: all 0.3s;
+
+      &:hover {
+        filter: brightness(0.95);
+      }
+
+      svg {
+        font-size: 22px;
+      }
+    }
+
+    p {
+      font-weight: 700;
+      font-size: 24px;
+      color: ${(props) => props.theme.neutral_color_05};
+    }
+  }
+
   .menu-infos {
     width: 100%;
   }
@@ -15,6 +54,8 @@ export const Container = styled.section`
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    position: relative;
 
     button[type='submit'] {
       align-self: end;
@@ -25,5 +66,8 @@ export const Container = styled.section`
 
   p.empty-form-text {
     margin-top: 2rem;
+
+    font-weight: 700;
+    color: ${(props) => props.theme.neutral_color_05};
   }
 `;

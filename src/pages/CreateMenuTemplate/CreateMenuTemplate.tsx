@@ -1,7 +1,8 @@
 import { useState, useRef } from 'react';
 import { toast } from 'react-toastify';
-import { Session } from '@supabase/supabase-js';
-import { useNavigate } from 'react-router-dom';
+import { AiOutlineArrowLeft } from 'react-icons/ai';
+import { Session, PostgrestError } from '@supabase/supabase-js';
+import { useNavigate, NavLink } from 'react-router-dom';
 import { Form } from '@unform/web';
 import { SubmitHandler, FormHandles } from '@unform/core';
 import AddSectionButton from '../../components/AddSectionButton';
@@ -31,6 +32,7 @@ const CreateMenuTemplate: React.FC<CreateMenuTemplateProps> = ({
 
   const {
     menu,
+    isEditing,
     addMenuSection,
     addMenuItem,
     updateSectionTitle,
@@ -59,6 +61,39 @@ const CreateMenuTemplate: React.FC<CreateMenuTemplateProps> = ({
     return { data, error };
   };
 
+  const handleUpdateMenuTemplate = async () => {
+    setLoading(true);
+
+    const { data, error } = await supabase
+      .from('menu-template')
+      .update({
+        name: menu.name,
+        description: menu.description,
+        sections: menu.sections,
+      })
+      .eq('id', menu.id)
+      .eq('user_id', userSession?.user?.id);
+
+    setLoading(false);
+
+    return { data, error };
+  };
+
+  const handleFeedbackMessage = (
+    data: any[] | null,
+    error: PostgrestError | null,
+    successMessage: string,
+    errorMessage: string
+  ) => {
+    if (data && !error) {
+      toast.success(successMessage);
+      navigate('/');
+      clearMenuData();
+    } else {
+      toast.error(errorMessage);
+    }
+  };
+
   const handleSubmit: SubmitHandler<MenuSection> = async (formData) => {
     if (loading || !formRef.current) return;
 
@@ -67,14 +102,24 @@ const CreateMenuTemplate: React.FC<CreateMenuTemplateProps> = ({
     try {
       await validateMenuTemplate(formData);
 
-      const { data, error } = await handleCreateMenuTemplate();
+      if (isEditing) {
+        const { data, error } = await handleUpdateMenuTemplate();
 
-      if (data && !error) {
-        toast.success('Succes! Enjoy your menu 🦄');
-        navigate('/');
-        clearMenuData();
+        handleFeedbackMessage(
+          data,
+          error,
+          'Succes! Menu is updated 🦄',
+          'Oops, an error occured 🦄'
+        );
       } else {
-        toast.error('Oops, an error occured 🦄');
+        const { data, error } = await handleCreateMenuTemplate();
+
+        handleFeedbackMessage(
+          data,
+          error,
+          'Succes! Enjoy your menu 🦄',
+          'Oops, an error occured 🦄'
+        );
       }
     } catch (err: any) {
       const validationErrors: any = {};
@@ -91,6 +136,18 @@ const CreateMenuTemplate: React.FC<CreateMenuTemplateProps> = ({
   return (
     <S.Container>
       <Form ref={formRef} onSubmit={handleSubmit}>
+        <div className='menu-action-container'>
+          <NavLink to={'/'}>
+            <div>
+              <AiOutlineArrowLeft />
+            </div>
+          </NavLink>
+
+          <p className='menu-action-txt'>
+            {isEditing ? 'Editing Menu' : 'Creating Menu'}
+          </p>
+        </div>
+
         <CustomButton
           text='Save menu'
           disabled={false}
