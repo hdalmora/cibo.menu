@@ -87,4 +87,12 @@ export const MenuSectionContent = styled.p`
     justify-content: center;
     color: white;
   }
+
+  @media (max-width: 1180px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (max-width: 960px) {
+    grid-template-columns: 1fr;
+  }
 `;

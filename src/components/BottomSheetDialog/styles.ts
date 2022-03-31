@@ -42,7 +42,7 @@ export const Container = styled(Dialog)<DialogProps>`
 `;
 
 export const Content = styled.div`
-  width: 70vw;
+  width: 70%;
   height: calc(100% - 40px);
 
   position: fixed;
@@ -78,5 +78,9 @@ export const Content = styled.div`
         border-radius: 4px;
       }
     }
+  }
+
+  @media (max-width: 1600px) {
+    width: 100%;
   }
 `;
