@@ -2,6 +2,7 @@ import { ReactNode, useState } from 'react';
 import { Session } from '@supabase/supabase-js';
 import { useLocation } from 'react-router-dom';
 import { AiFillCaretDown, AiOutlineMenu } from 'react-icons/ai';
+import { MenuItem, Menu } from '@material-ui/core';
 // import useUserProfile from '../../customHooks/useUserProfile';
 import LinkButton from '../LinkButton';
 import supabase from '../../../supabaseClient';
@@ -21,12 +22,27 @@ const Navigation: React.FC<NavigationProps> = ({
   // const { loading, username, avatar_url, website } =
   //   useUserProfile(userSession);
 
+  const [openUserMenu, setOpenUserMenu] = useState(null);
+
   const { pathname } = useLocation();
 
   const [openMenu, setOpenMenu] = useState(false);
 
   const isSignedIn = !!userSession;
   const hide = pathname.includes('/menu/') || pathname.includes('/qrcode/');
+
+  const handleClickUserMenu = (event: any) => {
+    setOpenUserMenu(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => {
+    setOpenUserMenu(null);
+  };
+
+  const handleLogout = () => {
+    setOpenUserMenu(null);
+    supabase.auth.signOut();
+  };
 
   return (
     <S.Container hide={hide}>
@@ -64,15 +80,26 @@ const Navigation: React.FC<NavigationProps> = ({
           <ul>
             <li
               className='profile-menu'
-              onClick={() => {
-                supabase.auth.signOut();
-              }}
+              aria-controls='navigation-user-menu'
+              aria-haspopup='true'
+              onClick={handleClickUserMenu}
             >
               <p className='user-email-nav'>{userSession?.user?.email}</p>
               <AiFillCaretDown />
             </li>
           </ul>
         )}
+
+        <Menu
+          id='navigation-user-menu'
+          anchorEl={openUserMenu}
+          keepMounted
+          open={Boolean(openUserMenu)}
+          onClose={handleCloseUserMenu}
+        >
+          <MenuItem>Profile</MenuItem>
+          <MenuItem onClick={handleLogout}>Logout</MenuItem>
+        </Menu>
       </nav>
 
       <main>{children}</main>
