@@ -57,4 +57,16 @@ export const Container = styled.section`
 
     width: 100%;
   }
+
+  @media (max-width: 540px) {
+    .main-title {
+      flex-direction: column;
+      align-items: start;
+
+      > p {
+        margin-bottom: 1rem;
+        text-align: start;
+      }
+    }
+  }
 `;

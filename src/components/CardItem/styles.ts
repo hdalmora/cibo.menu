@@ -16,6 +16,10 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: start;
 
+    p {
+      text-align: start;
+    }
+
     p:first-child {
       font-size: 22px;
       font-weight: 600;
