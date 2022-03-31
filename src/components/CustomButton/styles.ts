@@ -34,7 +34,7 @@ export const ButtonContainer = styled.button`
 interface InnerButtonContainerProps {
   disabled: boolean;
   isLoading: boolean;
-  width: number;
+  width?: number;
   variation: string;
 }
 

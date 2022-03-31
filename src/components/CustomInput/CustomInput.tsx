@@ -19,9 +19,9 @@ const defaultMaskOptions = {
 interface CustomInputProps {
   name: string;
   placeholder: string;
-  type: 'text' | 'number';
+  type: 'text' | 'number' | 'email';
   value: string | number | null;
-  onChangeValue: (value: string | number) => void;
+  onChangeValue?: (value: string | number) => void;
   main?: boolean;
 }
 
@@ -43,11 +43,13 @@ const CustomInput: React.FC<CustomInputProps> = ({
     const currentValue = event.target.value;
 
     if (currentValue) {
-      onChangeValue(
-        type === 'number'
-          ? Number.parseFloat(currentValue.replace('R$ ', ''))
-          : currentValue
-      );
+      if (onChangeValue) {
+        onChangeValue(
+          type === 'number'
+            ? Number.parseFloat(currentValue.replace('R$ ', ''))
+            : currentValue
+        );
+      }
 
       const isNotEmpty = currentValue.length > 0;
 
@@ -104,6 +106,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
         <input
           id={fieldName}
           ref={inputRef}
+          type={type}
           placeholder={placeholder}
           defaultValue={value || ''}
           onChange={handleOnChangeInput}

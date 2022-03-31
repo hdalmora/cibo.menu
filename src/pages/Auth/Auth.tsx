@@ -1,6 +1,14 @@
+import { useRef } from 'react';
+import { Form } from '@unform/web';
+import { SubmitHandler, FormHandles } from '@unform/core';
+import { toast } from 'react-toastify';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import supabase from '../../../supabaseClient';
+import CustomButton from '../../components/CustomButton';
+import CustomInput from '../../components/CustomInput';
+import FieldArea from '../../components/FieldArea';
+import { validateLoginEmail } from '../../validations';
 import * as S from './styles';
 
 interface AuthProps {
@@ -9,7 +17,8 @@ interface AuthProps {
 
 const Auth: React.FC<AuthProps> = ({ isSignedIn }: AuthProps) => {
   const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState('');
+
+  const formRef = useRef<FormHandles>(null);
 
   let navigate = useNavigate();
 
@@ -19,16 +28,37 @@ const Auth: React.FC<AuthProps> = ({ isSignedIn }: AuthProps) => {
     }
   }, [isSignedIn]);
 
-  const handleLogin = async (e: any) => {
-    e.preventDefault();
+  const handleLogin = async (data: any) => {
+    if (loading || !formRef.current) return;
+
+    console.log(data);
 
     try {
       setLoading(true);
-      const { error } = await supabase.auth.signIn({ email });
-      if (error) throw error;
-      alert('Check your email for the login link!');
+
+      await validateLoginEmail(data);
+
+      const { error } = await supabase.auth.signIn(data);
+
+      if (error) {
+        if (error.status === 429) {
+          toast.success('An email has already been sent to this addess! 🦄');
+        } else {
+          toast.error('An error occured while sending your email');
+        }
+      } else {
+        toast.success('Check your email for the login link! 🦄');
+      }
     } catch (error: any) {
-      alert(error.error_description || error.message);
+      const validationErrors: any = {};
+
+      error.inner.forEach((error: any) => {
+        validationErrors[error.path] = error.message;
+      });
+
+      formRef.current.setErrors(validationErrors);
+
+      toast.warn('You must type an e-mail! 🦄');
     } finally {
       setLoading(false);
     }
@@ -36,28 +66,38 @@ const Auth: React.FC<AuthProps> = ({ isSignedIn }: AuthProps) => {
 
   return (
     <S.Container>
-      <h1 className='header'>Supabase + React</h1>
-      <p className='description'>
-        Sign in via magic link with your email below
+      <p className='login-txt'>
+        With <span className='primary-txt'>Cibo</span>,
       </p>
-      {loading ? (
-        'Sending magic link...'
-      ) : (
-        <form onSubmit={handleLogin}>
-          <label htmlFor='email'>Email</label>
-          <input
-            id='email'
-            className='inputField'
-            type='email'
-            placeholder='Your email'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <button className='button block' aria-live='polite'>
-            Send magic link
-          </button>
-        </form>
-      )}
+      <p className='login-txt'>
+        you can create <span className='secondary-txt'>awesome </span>
+        <span className='primary-txt'>digital Menus</span> for your commerce!
+      </p>
+      <p className='login-txt'>
+        Start now by Loggin in with your
+        <span className='secondary-txt'>best e-mail:</span>
+      </p>
+
+      <Form ref={formRef} onSubmit={handleLogin}>
+        <S.InputContainer>
+          <FieldArea>
+            <CustomInput
+              name='email'
+              placeholder='Your best e-mail'
+              type='email'
+              value=''
+              main
+            />
+          </FieldArea>
+        </S.InputContainer>
+
+        <CustomButton
+          disabled={false}
+          isLoading={loading}
+          variation='primary'
+          text='Send magik Link'
+        />
+      </Form>
     </S.Container>
   );
 };

@@ -4,7 +4,7 @@ import CircularLoading from '../CircularLoading';
 interface CustomButtonProps {
   disabled: boolean;
   isLoading: boolean;
-  width: number;
+  width?: number;
   variation: string;
   text: string;
   handleButtonClick?: () => void;
