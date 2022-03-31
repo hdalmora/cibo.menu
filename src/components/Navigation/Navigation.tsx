@@ -1,11 +1,13 @@
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 import { Session } from '@supabase/supabase-js';
-import { matchPath, useLocation } from 'react-router-dom';
-import { AiFillCaretDown } from 'react-icons/ai';
+import { useLocation } from 'react-router-dom';
+import { AiFillCaretDown, AiOutlineMenu } from 'react-icons/ai';
 // import useUserProfile from '../../customHooks/useUserProfile';
 import LinkButton from '../LinkButton';
 import supabase from '../../../supabaseClient';
 import * as S from './styles';
+import BottomSheetDialog from '../BottomSheetDialog';
+import MenuLinks from './MenuLinks';
 
 interface NavigationProps {
   children: ReactNode;
@@ -20,6 +22,8 @@ const Navigation: React.FC<NavigationProps> = ({
   //   useUserProfile(userSession);
 
   const { pathname } = useLocation();
+
+  const [openMenu, setOpenMenu] = useState(false);
 
   const isSignedIn = !!userSession;
   const hide = pathname.includes('/menu/') || pathname.includes('/qrcode/');
@@ -38,17 +42,29 @@ const Navigation: React.FC<NavigationProps> = ({
             </ul>
           )}
 
-          {isSignedIn && (
-            <ul>
-              <li>
-                <LinkButton label='Home' to='/' />
-              </li>
+          {isSignedIn && <MenuLinks />}
+        </div>
 
-              <li>
-                <LinkButton label='Create' to='create-menu-template' />
-              </li>
-            </ul>
-          )}
+        <div className='hamburguer'>
+          <AiOutlineMenu
+            onClick={() => {
+              setOpenMenu(true);
+            }}
+          />
+
+          <BottomSheetDialog
+            open={openMenu}
+            onClose={() => {
+              setOpenMenu(false);
+            }}
+            maxHeight={50}
+          >
+            <MenuLinks
+              callback={() => {
+                setOpenMenu(false);
+              }}
+            />
+          </BottomSheetDialog>
         </div>
 
         {isSignedIn && (

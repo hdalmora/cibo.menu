@@ -41,12 +41,19 @@ export const Container = styled(Dialog)<DialogProps>`
   ${(props) => props.open && OpenState}
 `;
 
-export const Content = styled.div`
+interface ContentProps {
+  maxHeight?: number;
+}
+
+export const Content = styled.div<ContentProps>`
   width: 70%;
-  height: calc(100% - 40px);
+  height: ${(props) =>
+    props.maxHeight ? `calc(${props.maxHeight}% - 40px)` : 'calc(90% - 40px)'};
 
   position: fixed;
   bottom: 0;
+
+  box-sizing: border-box;
 
   display: flex;
   flex-direction: column;
@@ -82,5 +89,19 @@ export const Content = styled.div`
 
   @media (max-width: 1600px) {
     width: 100%;
+  }
+
+  @media (max-width: 800px) {
+    ul {
+      padding: 2rem;
+
+      li span a span {
+        font-size: 3em;
+      }
+
+      li {
+        margin-bottom: 3rem;
+      }
+    }
   }
 `;

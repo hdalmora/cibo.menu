@@ -50,6 +50,15 @@ export const Container = styled.section<ContainerProps>`
       align-items: center;
     }
 
+    div.hamburguer {
+      display: none;
+      cursor: pointer;
+
+      svg {
+        font-size: 2.2em;
+      }
+    }
+
     span.nav-title {
       color: ${(props) => props.theme.primary_color_01};
       font-weight: 700;
@@ -78,6 +87,18 @@ export const Container = styled.section<ContainerProps>`
 
       li {
         margin-left: 3rem;
+      }
+    }
+  }
+
+  @media (max-width: 800px) {
+    nav {
+      div {
+        display: none;
+      }
+
+      div.hamburguer {
+        display: flex;
       }
     }
   }
