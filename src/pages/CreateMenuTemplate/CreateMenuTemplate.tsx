@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import { toast } from 'react-toastify';
+import ReactTooltip from 'react-tooltip';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { Session, PostgrestError } from '@supabase/supabase-js';
 import { useNavigate, NavLink } from 'react-router-dom';
@@ -16,6 +17,7 @@ import { validateMenuTemplate } from '../../validations';
 import * as S from './styles';
 import CustomButton from '../../components/CustomButton';
 import supabase from '../../../supabaseClient';
+import BottomSheetDialog from '../../components/BottomSheetDialog';
 
 interface CreateMenuTemplateProps {
   userSession: Session | null;
@@ -27,6 +29,7 @@ const CreateMenuTemplate: React.FC<CreateMenuTemplateProps> = ({
   const formRef = useRef<FormHandles>(null);
 
   const [loading, setLoading] = useState(false);
+  const [openPreview, setOpenPreview] = useState(false);
 
   let navigate = useNavigate();
 
@@ -135,6 +138,14 @@ const CreateMenuTemplate: React.FC<CreateMenuTemplateProps> = ({
 
   return (
     <S.Container>
+      <BottomSheetDialog
+        open={openPreview}
+        onClose={() => {
+          setOpenPreview(false);
+        }}
+      >
+        <div>AAAAA</div>
+      </BottomSheetDialog>
       <Form ref={formRef} onSubmit={handleSubmit}>
         <div className='menu-action-container'>
           <NavLink to={'/'}>
@@ -146,6 +157,17 @@ const CreateMenuTemplate: React.FC<CreateMenuTemplateProps> = ({
           <p className='menu-action-txt'>
             {isEditing ? 'Editing Menu' : 'Creating Menu'}
           </p>
+
+          <button
+            data-tip='Preview how your clients will see your menu'
+            className='preview-btn'
+            type='button'
+            onClick={() => {
+              setOpenPreview(true);
+            }}
+          >
+            Preview
+          </button>
         </div>
 
         <CustomButton
@@ -205,6 +227,7 @@ const CreateMenuTemplate: React.FC<CreateMenuTemplateProps> = ({
         )}
         <AddSectionButton onClickCallback={addMenuSection} />
       </Form>
+      <ReactTooltip />
     </S.Container>
   );
 };

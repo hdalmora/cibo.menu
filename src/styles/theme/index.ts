@@ -7,6 +7,7 @@ export default {
   primary_color_04: '#16dab1',
 
   blue300: '#2c82c9',
+  yellow300: 'rgb(249, 203, 4)',
 
   textPrimary: '#121920',
   textSecondary: '#727178',

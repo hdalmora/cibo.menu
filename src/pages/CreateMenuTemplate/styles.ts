@@ -7,6 +7,25 @@ export const Container = styled.section`
   width: 100%;
   max-width: 720px;
 
+  button.preview-btn {
+    background: ${(props) => props.theme.yellow300};
+
+    font-weight: 700;
+    font-size: 14px;
+    border: none;
+    padding: 8px 16px;
+
+    border-radius: 16px;
+
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-left: 16px;
+
+    &:hover {
+      filter: brightness(0.9);
+    }
+  }
+
   div.menu-action-container {
     display: flex;
     align-items: center;
