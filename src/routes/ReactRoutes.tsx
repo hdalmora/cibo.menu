@@ -7,6 +7,7 @@ import Home from '../pages/Home';
 import PrivateRoute from './PrivateRoute';
 import OpenMenu from '../pages/OpenMenu';
 import NotFound from '../pages/NotFound';
+import OpenQRcode from '../pages/OpenQRcode';
 
 interface ReactRoutesProps {
   userSession: Session | null;
@@ -39,6 +40,7 @@ const ReactRoutes: React.FC<ReactRoutesProps> = ({
 
             <Route path='/auth' element={<Auth isSignedIn={!!userSession} />} />
             <Route path='/menu/:id' element={<OpenMenu />} />
+            <Route path='/qrcode/:id' element={<OpenQRcode />} />
             <Route path='*' element={<NotFound />} />
           </Routes>
         </>

@@ -13,8 +13,8 @@ import Paper from '../../components/Paper';
 interface CardItemProps {
   title: string;
   description?: string;
-  seeMenuLink: string;
-  OnGenerateQRCodeClicked?: () => void;
+  templateUUID: string;
+  OnGenerateQRCode?: () => void;
   onEdit?: () => void;
   onDelete?: () => void;
 }
@@ -22,8 +22,8 @@ interface CardItemProps {
 const CardItem: React.FC<CardItemProps> = ({
   title,
   description,
-  seeMenuLink,
-  OnGenerateQRCodeClicked,
+  templateUUID,
+  OnGenerateQRCode,
   onEdit,
   onDelete,
 }: CardItemProps) => {
@@ -39,17 +39,24 @@ const CardItem: React.FC<CardItemProps> = ({
           <div className='menu-actions'>
             <span>
               <NavLink
-                to={seeMenuLink}
+                to={`/menu/${templateUUID}`}
                 target='_blank'
                 rel='noopener noreferrer'
               >
                 <AiOutlineFileSearch data-tip='See my menu page' />
               </NavLink>
 
-              <AiOutlineQrcode
-                onClick={OnGenerateQRCodeClicked}
-                data-tip='Generate QR-code'
-              />
+              <NavLink
+                to={`/qrcode/${templateUUID}`}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <AiOutlineQrcode
+                  onClick={OnGenerateQRCode}
+                  data-tip='Generate QR-code'
+                />
+              </NavLink>
+
               <AiFillEdit onClick={onEdit} data-tip='Edit menu' />
               <AiFillDelete onClick={onDelete} data-tip='Delete menu' />
             </span>

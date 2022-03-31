@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Session } from '@supabase/supabase-js';
+import QRCode from 'react-qr-code';
 import { useNavigate, NavLink } from 'react-router-dom';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import { toast } from 'react-toastify';
@@ -62,10 +63,6 @@ const Home: React.FC<HomeProps> = ({ userSession }: HomeProps) => {
     navigate('/create-menu-template');
   };
 
-  const getSeeMenuLink = (id: string | null) => {
-    return `/menu/${id}`;
-  };
-
   useEffect(() => {
     handleGetTemplates();
   }, []);
@@ -100,7 +97,7 @@ const Home: React.FC<HomeProps> = ({ userSession }: HomeProps) => {
           key={template.id}
           title={template.name}
           description={template.description}
-          seeMenuLink={getSeeMenuLink(template.uuid)}
+          templateUUID={template.uuid}
           onDelete={() => handleDeleteTemplate(template)}
           onEdit={() => handleEditTemplate(template)}
         />
