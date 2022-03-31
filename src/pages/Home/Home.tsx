@@ -26,7 +26,7 @@ const Home: React.FC<HomeProps> = ({ userSession }: HomeProps) => {
     setLoading(true);
     let { data, error } = await supabase
       .from('menu-template')
-      .select('id, name,description,sections')
+      .select('id,uuid,name,description,sections')
       .eq('user_id', userSession?.user?.id);
 
     if (data && !error) {
@@ -60,6 +60,10 @@ const Home: React.FC<HomeProps> = ({ userSession }: HomeProps) => {
   const handleEditTemplate = async (template: MenuTemplate) => {
     setMenuTemplate(template);
     navigate('/create-menu-template');
+  };
+
+  const getSeeMenuLink = (id: string | null) => {
+    return `/menu/${id}`;
   };
 
   useEffect(() => {
@@ -96,6 +100,7 @@ const Home: React.FC<HomeProps> = ({ userSession }: HomeProps) => {
           key={template.id}
           title={template.name}
           description={template.description}
+          seeMenuLink={getSeeMenuLink(template.uuid)}
           onDelete={() => handleDeleteTemplate(template)}
           onEdit={() => handleEditTemplate(template)}
         />

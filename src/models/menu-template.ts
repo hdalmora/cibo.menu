@@ -15,6 +15,7 @@ export type MenuSection = {
 
 export type MenuTemplate = {
   id: string;
+  uuid: string;
   name: string;
   description: string;
   sections: MenuSection[];

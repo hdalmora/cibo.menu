@@ -4,6 +4,7 @@ import {
   AiFillEdit,
   AiFillDelete,
 } from 'react-icons/ai';
+import { NavLink } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 
 import * as S from './styles';
@@ -12,7 +13,7 @@ import Paper from '../../components/Paper';
 interface CardItemProps {
   title: string;
   description?: string;
-  OnSeeMenuClicked?: () => void;
+  seeMenuLink: string;
   OnGenerateQRCodeClicked?: () => void;
   onEdit?: () => void;
   onDelete?: () => void;
@@ -21,7 +22,7 @@ interface CardItemProps {
 const CardItem: React.FC<CardItemProps> = ({
   title,
   description,
-  OnSeeMenuClicked,
+  seeMenuLink,
   OnGenerateQRCodeClicked,
   onEdit,
   onDelete,
@@ -37,10 +38,14 @@ const CardItem: React.FC<CardItemProps> = ({
 
           <div className='menu-actions'>
             <span>
-              <AiOutlineFileSearch
-                onClick={OnSeeMenuClicked}
-                data-tip='See my menu page'
-              />
+              <NavLink
+                to={seeMenuLink}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <AiOutlineFileSearch data-tip='See my menu page' />
+              </NavLink>
+
               <AiOutlineQrcode
                 onClick={OnGenerateQRCodeClicked}
                 data-tip='Generate QR-code'

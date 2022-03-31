@@ -24,7 +24,7 @@ interface MenuTemplateState {
 }
 
 export const useStore = create<MenuTemplateState>((set) => ({
-  menu: { id: '', name: '', description: '', sections: [] },
+  menu: { id: '', uuid: '', name: '', description: '', sections: [] },
   isEditing: false,
   addMenuSection: () =>
     set(
@@ -99,7 +99,13 @@ export const useStore = create<MenuTemplateState>((set) => ({
   clearMenuData: () =>
     set(
       produce((state) => {
-        state.menu = { id: '', name: '', description: '', sections: [] };
+        state.menu = {
+          id: '',
+          uuid: '',
+          name: '',
+          description: '',
+          sections: [],
+        };
         state.isEditing = false;
       })
     ),
