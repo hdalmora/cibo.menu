@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { Session } from '@supabase/supabase-js';
+import { matchPath, useLocation } from 'react-router-dom';
 import { AiFillCaretDown } from 'react-icons/ai';
 // import useUserProfile from '../../customHooks/useUserProfile';
 import LinkButton from '../LinkButton';
@@ -18,12 +19,13 @@ const Navigation: React.FC<NavigationProps> = ({
   // const { loading, username, avatar_url, website } =
   //   useUserProfile(userSession);
 
-  const isSignedIn = !!userSession;
+  const { pathname } = useLocation();
 
-  console.log(userSession);
+  const isSignedIn = !!userSession;
+  const hide = pathname.includes('/menu/') || pathname.includes('/qrcode/');
 
   return (
-    <S.Container>
+    <S.Container hide={hide}>
       <nav>
         <div>
           <span className='nav-title'>Cibo.menu</span>

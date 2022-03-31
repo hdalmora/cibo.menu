@@ -12,9 +12,19 @@ const MainContainer = css`
   text-align: center;
 `;
 
-export const Container = styled.section`
+const HideState = css`
+  display: none;
+`;
+
+interface ContainerProps {
+  hide: boolean;
+}
+
+export const Container = styled.section<ContainerProps>`
   display: flex;
   flex-direction: column;
+
+  ${(props) => props.hide && HideState}
 
   main {
     ${MainContainer}
