@@ -34,15 +34,7 @@ const Navigation: React.FC<NavigationProps> = ({
         <div>
           <span className='nav-title'>Cibo.menu</span>
 
-          {!isSignedIn && (
-            <ul>
-              <li>
-                <LinkButton label='Loggin in!' to='/auth' />
-              </li>
-            </ul>
-          )}
-
-          {isSignedIn && <MenuLinks />}
+          <MenuLinks isSignedIn={isSignedIn} />
         </div>
 
         <div className='hamburguer'>
@@ -60,6 +52,7 @@ const Navigation: React.FC<NavigationProps> = ({
             maxHeight={50}
           >
             <MenuLinks
+              isSignedIn={isSignedIn}
               callback={() => {
                 setOpenMenu(false);
               }}
