@@ -89,4 +89,14 @@ export const Container = styled.section`
     font-weight: 700;
     color: ${(props) => props.theme.neutral_color_05};
   }
+
+  @media (max-width: 540px) {
+    form {
+      button[type='submit'] {
+        align-self: start;
+
+        margin-top: 4rem;
+      }
+    }
+  }
 `;
