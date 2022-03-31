@@ -75,7 +75,7 @@ const Auth: React.FC<AuthProps> = ({ isSignedIn }: AuthProps) => {
       </p>
       <p className='login-txt'>
         Start now by Loggin in with your
-        <span className='secondary-txt'>best e-mail:</span>
+        <span className='secondary-txt'> best e-mail:</span>
       </p>
 
       <Form ref={formRef} onSubmit={handleLogin}>

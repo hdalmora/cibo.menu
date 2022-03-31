@@ -43,7 +43,7 @@ export const Container = styled(Dialog)<DialogProps>`
 
 export const Content = styled.div`
   width: 70vw;
-  height: calc(100vh - 40px);
+  height: calc(100% - 40px);
 
   position: fixed;
   bottom: 0;
@@ -53,25 +53,30 @@ export const Content = styled.div`
   align-items: center;
   align-self: center;
 
-  background-color: ${(props) => props.theme.neutral_color_01};
+  background: ${(props) => props.theme.neutral_color_01};
   border-radius: 8px 8px 0 0 !important;
   overflow: visible;
 
+  padding: 16px 16px 0px 16px;
+
   #modal-content {
     scroll-behavior: smooth;
-  }
+    height: 100%;
 
-  > div {
     width: 100%;
 
-    overflow-y: 'auto';
+    > div {
+      height: 100%;
 
-    ::-webkit-scrollbar {
-      width: 10px;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: ${(props) => props.theme.neutral_color_03};
-      border-radius: 4px;
+      overflow-y: scroll;
+
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: ${(props) => props.theme.neutral_color_03};
+        border-radius: 4px;
+      }
     }
   }
 `;

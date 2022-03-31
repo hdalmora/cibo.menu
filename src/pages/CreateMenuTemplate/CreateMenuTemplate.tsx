@@ -18,6 +18,7 @@ import * as S from './styles';
 import CustomButton from '../../components/CustomButton';
 import supabase from '../../../supabaseClient';
 import BottomSheetDialog from '../../components/BottomSheetDialog';
+import Menu from '../../components/Menu';
 
 interface CreateMenuTemplateProps {
   userSession: Session | null;
@@ -144,7 +145,7 @@ const CreateMenuTemplate: React.FC<CreateMenuTemplateProps> = ({
           setOpenPreview(false);
         }}
       >
-        <div>AAAAA</div>
+        <Menu menu={menu} />
       </BottomSheetDialog>
       <Form ref={formRef} onSubmit={handleSubmit}>
         <div className='menu-action-container'>

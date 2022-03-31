@@ -3,7 +3,7 @@ import * as S from './styles';
 interface BottomSheetDialogProps {
   open: boolean;
   children: React.ReactNode;
-  onClose: () => void;
+  onClose?: () => void;
 }
 
 const BottomSheetDialog: React.FC<BottomSheetDialogProps> = ({

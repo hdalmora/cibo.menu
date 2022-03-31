@@ -5,6 +5,8 @@ import Auth from '../pages/Auth';
 import CreateMenuTemplate from '../pages/CreateMenuTemplate';
 import Home from '../pages/Home';
 import PrivateRoute from './PrivateRoute';
+import OpenMenu from '../pages/OpenMenu';
+import NotFound from '../pages/NotFound';
 
 interface ReactRoutesProps {
   userSession: Session | null;
@@ -36,6 +38,8 @@ const ReactRoutes: React.FC<ReactRoutesProps> = ({
             </Route>
 
             <Route path='/auth' element={<Auth isSignedIn={!!userSession} />} />
+            <Route path='/menu/:id' element={<OpenMenu />} />
+            <Route path='*' element={<NotFound />} />
           </Routes>
         </>
       </Navigation>
