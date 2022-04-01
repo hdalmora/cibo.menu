@@ -32,7 +32,7 @@ const OpenQRcode: React.FC = () => {
         <div id='qr-code-content'>
           <div id='qrcode'>
             <QRcode
-              value={`http://localhost:3000/menu/${id}`} // TODO change link here
+              value={`https://cibomenu.netlify.app/menu/${id}`} // TODO change link here
               size={200}
             />
           </div>
