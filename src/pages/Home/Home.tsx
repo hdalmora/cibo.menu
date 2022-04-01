@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Session } from '@supabase/supabase-js';
-import QRCode from 'react-qr-code';
 import { useNavigate, NavLink } from 'react-router-dom';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import { toast } from 'react-toastify';
@@ -33,7 +32,7 @@ const Home: React.FC<HomeProps> = ({ userSession }: HomeProps) => {
     if (data && !error) {
       setTemplates(data);
     } else {
-      toast.error('Oops, An error occured fetching your menus 🦄');
+      toast.error('Oops, erro ao buscar seus cardápios 😖');
     }
 
     setLoading(false);
@@ -46,7 +45,7 @@ const Home: React.FC<HomeProps> = ({ userSession }: HomeProps) => {
       .eq('id', template.id);
 
     if (data && !error) {
-      toast.success('Menu deleted successfuly 🦄');
+      toast.success('Cardápio deletado com sucesso 💪');
 
       const undeletedTemplates = templates.filter(
         (el) => el.id !== template.id
@@ -54,7 +53,7 @@ const Home: React.FC<HomeProps> = ({ userSession }: HomeProps) => {
 
       setTemplates([...undeletedTemplates]);
     } else {
-      toast.error('Oops, An error occured deleting your menu 🦄');
+      toast.error('Oops, erro ao deletar seu cardápio 🙀');
     }
   };
 
@@ -71,7 +70,7 @@ const Home: React.FC<HomeProps> = ({ userSession }: HomeProps) => {
     <S.Container>
       <div className='main-title'>
         <p>
-          <strong>My awesome menus</strong>
+          <strong>Meus cardápios incríveis</strong>
         </p>
 
         <NavLink to={'/create-menu-template'}>
@@ -80,7 +79,7 @@ const Home: React.FC<HomeProps> = ({ userSession }: HomeProps) => {
             isLoading={false}
             width={160}
             variation='primary'
-            text='Create new menu'
+            text='Criar novo cardápio'
             handleButtonClick={clearMenuData}
           />
         </NavLink>

@@ -22,7 +22,7 @@ const OpenQRcode: React.FC = () => {
 
     if (base64Image) {
       pdf.addImage(base64Image, 'png', 0, 0, 40, 40);
-      pdf.save('Menu QR Code.pdf');
+      pdf.save('Cardapio QR Code.pdf');
     }
   };
 
@@ -41,7 +41,7 @@ const OpenQRcode: React.FC = () => {
             disabled={false}
             isLoading={false}
             variation='secondary'
-            text='Download QRCode'
+            text='QR Code para o seu cardápio'
             handleButtonClick={downloadPDF}
           />
         </div>

@@ -33,7 +33,7 @@ const CardItem: React.FC<CardItemProps> = ({
         <div className='menu-card-infos'>
           <div className='menu-title-desc'>
             <p>{title}</p>
-            <p>{description || 'No description'}</p>
+            <p>{description || 'Nenhuma descrição'}</p>
           </div>
 
           <div className='menu-actions'>
@@ -43,7 +43,7 @@ const CardItem: React.FC<CardItemProps> = ({
                 target='_blank'
                 rel='noopener noreferrer'
               >
-                <AiOutlineFileSearch data-tip='See my menu page' />
+                <AiOutlineFileSearch data-tip='Ver minha página de cardápio' />
               </NavLink>
 
               <NavLink
@@ -57,8 +57,8 @@ const CardItem: React.FC<CardItemProps> = ({
                 />
               </NavLink>
 
-              <AiFillEdit onClick={onEdit} data-tip='Edit menu' />
-              <AiFillDelete onClick={onDelete} data-tip='Delete menu' />
+              <AiFillEdit onClick={onEdit} data-tip='Editar cardápio' />
+              <AiFillDelete onClick={onDelete} data-tip='Deletar cardápio' />
             </span>
           </div>
         </div>

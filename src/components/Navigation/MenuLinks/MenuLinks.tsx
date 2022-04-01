@@ -18,7 +18,7 @@ const MenuLinks: React.FC<MenuLinksProps> = ({
           </li>
 
           <li onClick={callback}>
-            <LinkButton label='Create' to='create-menu-template' />
+            <LinkButton label='Criar' to='create-menu-template' />
           </li>
         </ul>
       )}
@@ -26,7 +26,7 @@ const MenuLinks: React.FC<MenuLinksProps> = ({
       {!isSignedIn && (
         <ul>
           <li onClick={callback}>
-            <LinkButton label='Loggin in!' to='/auth' />
+            <LinkButton label='Entrando!' to='/auth' />
           </li>
         </ul>
       )}

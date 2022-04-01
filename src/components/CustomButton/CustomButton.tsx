@@ -36,7 +36,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
         {isLoading && variation === 'primary' ? (
           <div className='loading'>
             <CircularLoading />
-            <p className='btn_text_loading'>Loading...</p>
+            <p className='btn_text_loading'>Carregando...</p>
           </div>
         ) : (
           <div className='btn_root'>

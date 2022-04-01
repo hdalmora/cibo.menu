@@ -25,7 +25,7 @@ const FormItemArea: React.FC<FormItemAreaProps> = ({
             <>
               <CustomInput
                 name={`sections[${sectionIndex}].items[${index}].foodName`}
-                placeholder='Menu item title'
+                placeholder='Nome do prato'
                 type='text'
                 value={item.foodName}
                 onChangeValue={(value: any) => {
@@ -35,7 +35,7 @@ const FormItemArea: React.FC<FormItemAreaProps> = ({
 
               <CustomInput
                 name={`sections[${sectionIndex}].items[${index}].foodPrice`}
-                placeholder='Price'
+                placeholder='Preço'
                 type='number'
                 value={item.foodPrice}
                 onChangeValue={(value: any) => {
@@ -57,9 +57,7 @@ const FormItemArea: React.FC<FormItemAreaProps> = ({
         ))}
 
       {!items ||
-        (items.length <= 0 && (
-          <p>Add at least one menu item to this section</p>
-        ))}
+        (items.length <= 0 && <p>Adicione pelo menos um prato nesta seção</p>)}
     </S.Container>
   );
 };

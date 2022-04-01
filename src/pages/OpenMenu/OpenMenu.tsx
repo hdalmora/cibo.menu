@@ -24,7 +24,7 @@ const OpenMenu: React.FC = () => {
     if (data && !error) {
       setTemplate(data);
     } else {
-      toast.error('Oops, An error occured fetching your menus 🦄');
+      toast.error('Oops, erro ao buscar cardápio 😰');
     }
 
     setLoading(false);

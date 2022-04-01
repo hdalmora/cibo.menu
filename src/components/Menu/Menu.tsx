@@ -9,7 +9,7 @@ const Menu: React.FC<MenuProps> = ({ menu }: MenuProps) => {
   return (
     <S.Container>
       <p className='title'>
-        {menu?.name || 'Oops, there is no menu to see here :/'}
+        {menu?.name || 'Oops, não existe um cardápio aqui para ser visto 😭'}
       </p>
       <p className='sub-title'>{menu?.description}</p>
 

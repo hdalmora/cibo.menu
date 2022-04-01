@@ -10,7 +10,7 @@ const AddSectionButton: React.FC<AddSectionButtonProps> = ({
   return (
     <S.Container>
       <button type='button' onClick={onClickCallback}>
-        Add menu section
+        Adicionar seção
       </button>
     </S.Container>
   );

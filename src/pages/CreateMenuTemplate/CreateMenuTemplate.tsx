@@ -112,8 +112,8 @@ const CreateMenuTemplate: React.FC<CreateMenuTemplateProps> = ({
         handleFeedbackMessage(
           data,
           error,
-          'Succes! Menu is updated 🦄',
-          'Oops, an error occured 🦄'
+          'Sucesso! Cardápio atualizado 😎',
+          'Oops, ocorreu um erro 😖'
         );
       } else {
         const { data, error } = await handleCreateMenuTemplate();
@@ -121,8 +121,8 @@ const CreateMenuTemplate: React.FC<CreateMenuTemplateProps> = ({
         handleFeedbackMessage(
           data,
           error,
-          'Succes! Enjoy your menu 🦄',
-          'Oops, an error occured 🦄'
+          'Sucesso! Aproveite seu cardápio 😎',
+          'Oops, ocorreu um erro 😖'
         );
       }
     } catch (err: any) {
@@ -133,7 +133,7 @@ const CreateMenuTemplate: React.FC<CreateMenuTemplateProps> = ({
       });
       formRef.current.setErrors(validationErrors);
 
-      toast.warn('A validation error appeared! 🦄');
+      toast.warn('Opa, temos um erro de validação! 🧐');
     }
   };
 
@@ -156,11 +156,11 @@ const CreateMenuTemplate: React.FC<CreateMenuTemplateProps> = ({
           </NavLink>
 
           <p className='menu-action-txt'>
-            {isEditing ? 'Editing Menu' : 'Creating Menu'}
+            {isEditing ? 'Editando Cardápio' : 'Criando Cardápio'}
           </p>
 
           <button
-            data-tip='Preview how your clients will see your menu'
+            data-tip='Veja como seus clientes irão ver seu cardápio'
             className='preview-btn'
             type='button'
             onClick={() => {
@@ -184,7 +184,7 @@ const CreateMenuTemplate: React.FC<CreateMenuTemplateProps> = ({
             <FieldArea>
               <CustomInput
                 name='name'
-                placeholder='Menu name'
+                placeholder='Nome do cardápio'
                 type='text'
                 value={menu.name}
                 onChangeValue={(value: any) => {
@@ -197,7 +197,7 @@ const CreateMenuTemplate: React.FC<CreateMenuTemplateProps> = ({
             <FieldArea>
               <CustomInput
                 name='description'
-                placeholder='Menu description'
+                placeholder='Descrição'
                 type='text'
                 value={menu.description}
                 onChangeValue={(value: any) => {
@@ -224,7 +224,9 @@ const CreateMenuTemplate: React.FC<CreateMenuTemplateProps> = ({
         ))}
 
         {menu.sections.length <= 0 && (
-          <p className='empty-form-text'>Start adding sections to your menu.</p>
+          <p className='empty-form-text'>
+            Comece adicionando seções para o seu cardápio.
+          </p>
         )}
         <AddSectionButton onClickCallback={addMenuSection} />
       </Form>

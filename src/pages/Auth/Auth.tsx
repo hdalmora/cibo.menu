@@ -1,8 +1,7 @@
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { Form } from '@unform/web';
-import { SubmitHandler, FormHandles } from '@unform/core';
+import { FormHandles } from '@unform/core';
 import { toast } from 'react-toastify';
-import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import supabase from '../../../supabaseClient';
 import CustomButton from '../../components/CustomButton';
@@ -42,12 +41,12 @@ const Auth: React.FC<AuthProps> = ({ isSignedIn }: AuthProps) => {
 
       if (error) {
         if (error.status === 429) {
-          toast.success('An email has already been sent to this addess! 🦄');
+          toast.success('Um e-mail já foi enviado para este endereço! 🤩');
         } else {
-          toast.error('An error occured while sending your email');
+          toast.error('Oops, ocorreu um erro 😖');
         }
       } else {
-        toast.success('Check your email for the login link! 🦄');
+        toast.success('Ae, um e-mail foi enviado para você logar! 🥳');
       }
     } catch (error: any) {
       const validationErrors: any = {};
@@ -58,7 +57,7 @@ const Auth: React.FC<AuthProps> = ({ isSignedIn }: AuthProps) => {
 
       formRef.current.setErrors(validationErrors);
 
-      toast.warn('You must type an e-mail! 🦄');
+      toast.warn('Você precisa digitar um e-mail! 🧐');
     } finally {
       setLoading(false);
     }
@@ -67,15 +66,16 @@ const Auth: React.FC<AuthProps> = ({ isSignedIn }: AuthProps) => {
   return (
     <S.Container>
       <p className='login-txt'>
-        With <span className='primary-txt'>Cibo</span>,
+        Com o <span className='primary-txt'>Cibo</span>,
       </p>
       <p className='login-txt'>
-        you can create <span className='secondary-txt'>awesome </span>
-        <span className='primary-txt'>digital Menus</span> for your commerce!
+        você pode criar <span className='secondary-txt'>incríveis </span>
+        <span className='primary-txt'>Cardápios digitais</span> para o seu
+        comércio!
       </p>
       <p className='login-txt'>
-        Start now by Loggin in with your
-        <span className='secondary-txt'> best e-mail:</span>
+        Comece agora fazendo o Login com seu
+        <span className='secondary-txt'> melhor e-mail:</span>
       </p>
 
       <Form ref={formRef} onSubmit={handleLogin}>
@@ -83,7 +83,7 @@ const Auth: React.FC<AuthProps> = ({ isSignedIn }: AuthProps) => {
           <FieldArea>
             <CustomInput
               name='email'
-              placeholder='Your best e-mail'
+              placeholder='Seu melhor e-mail'
               type='email'
               value=''
               main
@@ -95,7 +95,7 @@ const Auth: React.FC<AuthProps> = ({ isSignedIn }: AuthProps) => {
           disabled={false}
           isLoading={loading}
           variation='primary'
-          text='Send magik Link'
+          text='Enviar Link Mágico 🧙'
         />
       </Form>
     </S.Container>

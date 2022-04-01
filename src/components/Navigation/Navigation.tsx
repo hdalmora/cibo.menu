@@ -97,8 +97,8 @@ const Navigation: React.FC<NavigationProps> = ({
           open={Boolean(openUserMenu)}
           onClose={handleCloseUserMenu}
         >
-          <MenuItem>Profile</MenuItem>
-          <MenuItem onClick={handleLogout}>Logout</MenuItem>
+          {/* <MenuItem></MenuItem> */}
+          <MenuItem onClick={handleLogout}>Sair</MenuItem>
         </Menu>
       </nav>
 

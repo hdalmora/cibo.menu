@@ -50,7 +50,7 @@ const MenuSectionContainer: React.FC<MenuSectionContainerProps> = ({
 
       <S.Container>
         <MdDeleteSweep
-          data-tip='Delete section'
+          data-tip='Deletar seção'
           className='delete-section-btn'
           onClick={handleRemoveSection}
         />
@@ -59,7 +59,7 @@ const MenuSectionContainer: React.FC<MenuSectionContainerProps> = ({
           <FieldArea>
             <CustomInput
               name={`sections[${sectionIndex}].menuSectionName`}
-              placeholder='Menu section name'
+              placeholder='Nome da seção'
               type='text'
               value={sectionName}
               onChangeValue={(value: any) => {
@@ -83,7 +83,7 @@ const MenuSectionContainer: React.FC<MenuSectionContainerProps> = ({
           className='add-menu-item-btn'
           onClick={handleAddMenuItem}
         >
-          Add menu item
+          Adicionar novo prato
         </button>
       </S.Container>
     </Paper>
