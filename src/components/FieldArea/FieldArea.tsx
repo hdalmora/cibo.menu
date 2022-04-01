@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import OutsideClickHandler from 'react-outside-click-handler';
+import { useRef, useState, useCallback } from 'react';
+import { useOutsideClick } from '../../hooks/useOutsideClick';
 import * as S from './styles';
 
 interface FieldAreaProps {
@@ -9,20 +9,24 @@ interface FieldAreaProps {
 const FieldArea: React.FC<FieldAreaProps> = ({ children }: FieldAreaProps) => {
   const [selected, setSelected] = useState(false);
 
-  const handleSelect = () => {
-    if (!selected) setSelected(true);
-  };
+  const outsideClickRef = useRef(null);
 
-  const handleOutsideClick = () => {
-    if (selected) setSelected(false);
-  };
+  useOutsideClick(outsideClickRef, () => {
+    setSelected(false);
+  });
+
+  const handleSelect = useCallback(() => {
+    if (!selected) setSelected(true);
+  }, []);
 
   return (
-    <OutsideClickHandler onOutsideClick={handleOutsideClick}>
-      <S.Container onClick={handleSelect} selected={selected}>
-        <>{children}</>
-      </S.Container>
-    </OutsideClickHandler>
+    <S.Container
+      ref={outsideClickRef}
+      onClick={handleSelect}
+      selected={selected}
+    >
+      {children}
+    </S.Container>
   );
 };
 

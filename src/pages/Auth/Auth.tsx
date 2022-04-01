@@ -30,8 +30,6 @@ const Auth: React.FC<AuthProps> = ({ isSignedIn }: AuthProps) => {
   const handleLogin = async (data: any) => {
     if (loading || !formRef.current) return;
 
-    console.log(data);
-
     try {
       setLoading(true);
 

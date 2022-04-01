@@ -24,8 +24,6 @@ const useUserProfile = (
       setLoading(true);
       const user = supabase.auth.user();
 
-      console.log('id', user?.id);
-
       let { data, error, status } = await supabase
         .from('profiles')
         .select(`username, avatar_url`)
