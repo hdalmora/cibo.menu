@@ -85,6 +85,19 @@ export const Content = styled.div<ContentProps>`
         border-radius: 4px;
       }
     }
+
+    #qr-code-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+      height: 70%;
+
+      button {
+        margin-top: 5rem;
+      }
+    }
   }
 
   @media (max-width: 1600px) {
